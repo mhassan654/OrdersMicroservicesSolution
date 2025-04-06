@@ -4,7 +4,7 @@ public record OrderUpdateRequest(
     Guid OrderID,
     Guid UserID,
     DateTime OrderDate,
-    List<OrderItemAddRequest> OrderItems)
+    List<OrderItemUpdateRequest> OrderItems)
 {
     public OrderUpdateRequest(): this(Guid.NewGuid(), Guid.NewGuid(), DateTime.UtcNow, null) { }
 }

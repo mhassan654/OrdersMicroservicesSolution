@@ -9,7 +9,7 @@ using MongoDB.Driver;
 
 namespace DataAccessLayer.Repositories
 {
-    public class OrderRepository : IOrdersRepositoriy
+    public class OrderRepository : IOrdersRepository
     {
         private readonly IMongoCollection<Order> _ordersCollection;
         private readonly string _collectionName = "orders";

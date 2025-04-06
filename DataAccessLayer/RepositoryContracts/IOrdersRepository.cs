@@ -8,7 +8,7 @@ using MongoDB.Driver;
 
 namespace DataAccessLayer.RepositoryContracts
 {
-    public interface IOrdersRepositoriy
+    public interface IOrdersRepository
     {
         /// <summary>
         /// Retrieves all orders asynchrounously

@@ -6,7 +6,7 @@ namespace DataAccessLayer.Entities
     {
         [BsonId]
         [BsonRepresentation(MongoDB.Bson.BsonType.String)]
-        public string _d { get; set; }
+        public string _id { get; set; }
 
         [BsonRepresentation(MongoDB.Bson.BsonType.String)]
         public Guid ProductId { get; set; }

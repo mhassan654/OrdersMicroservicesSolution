@@ -13,8 +13,4 @@
     <PackageReference Include="MongoDB.Driver" Version="3.3.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\OrdersMicroservices.API\OrdersMicroservices.API.csproj" />
-  </ItemGroup>
-
 </Project>

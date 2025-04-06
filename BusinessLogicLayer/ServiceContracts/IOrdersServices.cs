@@ -4,12 +4,12 @@ using MongoDB.Driver;
 
 namespace BusinessLogicLayer.ServiceContracts;
 
-public class IOrdersServices
+public interface IOrdersServices
 {
     /// <summary>
-    /// Retrieves the list of ordees from the orders repository
+    /// Retrieves the list of orders from the orders repository
     /// </summary>
-    /// <returns>Returns list or orderREpository objects
+    /// <returns>Returns list or orderRepository objects
     /// </returns>
     Task<List<OrderResponse?>> GetAllOrdersAsync();
     

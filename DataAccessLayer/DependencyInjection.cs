@@ -29,7 +29,7 @@ namespace DataAccessLayer
                 return mongoClient.GetDatabase("OrdersDatabase");
             });
 
-            services.AddScoped<IOrdersRepositoriy, OrderRepository>();
+            services.AddScoped<IOrdersRepository, OrderRepository>();
             return services;
         }
     }
