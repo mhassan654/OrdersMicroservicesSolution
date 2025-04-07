@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using BusinessLogicLayer.ServiceContracts;
+using BusinessLogicLayer.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BusinessLogicLayer
@@ -8,6 +10,7 @@ namespace BusinessLogicLayer
         public static IServiceCollection AddBusinessLogicLayer(this IServiceCollection services,
             IConfiguration configuration)
         {
+            services.AddScoped<IOrdersServices, OrdersService>();
             return services;
         }
     }

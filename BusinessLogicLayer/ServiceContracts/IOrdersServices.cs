@@ -20,7 +20,7 @@ public interface IOrdersServices
     /// <param name="filter"></param>
     /// <returns></returns>
     
-    Task<List<OrderResponse?>> GetOrdersByCustomerIdAsync(
+    Task<List<OrderResponse?>> GetOrdersByCondtion(
         FilterDefinition<Order> filter);
     
     /// <summary>
@@ -31,7 +31,7 @@ public interface IOrdersServices
     /// <returns>
     /// Returns matching order object as ORderResponse; or null if not found
     /// </returns>
-    Task<List<OrderResponse?>> GetOrderByCustomerIdAsync(
+    Task<OrderResponse?> GetOrderByCondition(
         FilterDefinition<Order> filter);
     
     /// <summary>

@@ -17,7 +17,7 @@ public class OrdersService:IOrdersServices
     private readonly IValidator<OrderItemUpdateRequest> _orderItemUpdateRequestValidator;
     
     private readonly IMapper _mapper;
-    private IOrdersRepository _repository;
+    private readonly IOrdersRepository _repository;
     
     public OrdersService(
         IOrdersRepository ordersRepository,
@@ -37,15 +37,27 @@ public class OrdersService:IOrdersServices
     
     public async Task<List<OrderResponse?>> GetAllOrdersAsync()
     {
-        throw new NotImplementedException();
+        IEnumerable<Order?> orders = await _repository.GetOrders();
+        IEnumerable<OrderResponse?> orderResponse = _mapper.Map<IEnumerable<OrderResponse>>(orders);
+        return orderResponse.ToList();
     }
 
-    public async Task<List<OrderResponse?>> GetOrdersByCustomerIdAsync(FilterDefinition<Order> filter)
+    public async Task<List<OrderResponse>?> GetOrdersByCondtion(FilterDefinition<Order> filter)
     {
-        throw new NotImplementedException();
+       IEnumerable<Order?> orders = await _repository.GetOrdersByCondition(filter);
+
+       IEnumerable<OrderResponse?> orderResponse = _mapper.Map<IEnumerable<OrderResponse>>(orders);
+        return orderResponse.ToList();
     }
 
-    public async Task<List<OrderResponse?>> GetOrderByCustomerIdAsync(FilterDefinition<Order> filter)
+    // async Task<OrderResponse?> IOrdersServices.GetOrderByCondition(FilterDefinition<Order> filter)
+    // {
+    //     throw new NotImplementedException();
+    // }
+
+   
+
+    public async Task<OrderResponse?> GetOrderByCondition(FilterDefinition<Order> filter)
     {
         throw new NotImplementedException();
     }
@@ -155,7 +167,7 @@ public class OrdersService:IOrdersServices
         orderInput.TotalBill = orderInput.OrderItems.Sum(x => x.TotalPrice);
         
         //invoke repository
-         Order? updatedOrder = await  _repository.UpdateOrder((orderInput);
+         Order? updatedOrder = await  _repository.UpdateOrder((orderInput));
 
          if (updatedOrder ==null)
          {
@@ -169,6 +181,17 @@ public class OrdersService:IOrdersServices
 
     public async Task<bool> DeleteOrder(Guid orderId)
     {
-        throw new NotImplementedException();
+        FilterDefinition<Order> filter = Builders<Order>.Filter.Eq(
+            x=>x.OrderId,orderId);
+
+        Order? existingOrder = await _repository.GetOrderByCondition(filter);
+
+        if (existingOrder == null)
+        {
+            return false;
+        }
+
+        var isDeleted = await _repository.DeleteOrder(orderId);
+        return (bool)isDeleted!;
     }
 }
