@@ -59,7 +59,14 @@ public class OrdersService:IOrdersServices
 
     public async Task<OrderResponse?> GetOrderByCondition(FilterDefinition<Order> filter)
     {
-        throw new NotImplementedException();
+        Order? order = await _repository.GetOrderByCondition(filter);
+        if (order ==null)
+        {
+            return null;
+        }
+
+        OrderResponse orderResponse = _mapper.Map<OrderResponse>(order);
+        return orderResponse;
     }
 
     public async Task<OrderResponse?> AddOrder(OrderAddRequest orderAddRequest)
