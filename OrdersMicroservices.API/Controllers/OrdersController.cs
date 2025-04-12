@@ -74,7 +74,6 @@ namespace OrdersMicroservices.API.Controllers
                 return Problem("Error in adding product");
             }
 
-            //return Ok(orderResponse);
             return Created($"api/Orders/search/orderid/{orderResponse?.OrderID}", orderResponse);
         }
 

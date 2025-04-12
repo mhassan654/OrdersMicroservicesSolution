@@ -6,7 +6,7 @@ namespace BusinessLogicLayer.Mappers;
 
 public class OrderItemAddRequestToOrderItemMapperProfile:Profile
 {
-    protected OrderItemAddRequestToOrderItemMapperProfile()
+    public OrderItemAddRequestToOrderItemMapperProfile()
     {
         CreateMap<OrderItemAddRequest, OrderItem>()
             .ForMember(dest => dest.ProductId,

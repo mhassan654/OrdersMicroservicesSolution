@@ -13,8 +13,6 @@ builder.Services.AddBusinessLogicLayer(builder.Configuration);
 
 builder.Services.AddControllers();
 
-// builder.Services.AddAutoMapper(
-//     typeof(OrderAddRequestToOrderMappingProfile).Assembly));
 
 //fluent validations
 builder.Services.AddFluentValidationAutoValidation();
@@ -51,5 +49,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
+// controller routes
+app.MapControllers();
 
 app.Run();
