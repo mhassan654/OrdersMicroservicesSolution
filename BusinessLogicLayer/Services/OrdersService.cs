@@ -42,7 +42,7 @@ public class OrdersService:IOrdersServices
         return orderResponse.ToList();
     }
 
-    public async Task<List<OrderResponse>?> GetOrdersByCondtion(FilterDefinition<Order> filter)
+    public async Task<List<OrderResponse?>> GetOrdersByCondtion(FilterDefinition<Order> filter)
     {
        IEnumerable<Order?> orders = await _repository.GetOrdersByCondition(filter);
 

@@ -5,5 +5,5 @@ public record OrderItemAddRequest(
     decimal UnitPrice,
     int Quantity)
 {
-    public OrderItemAddRequest(): this(Guid.NewGuid(), default, default){}
+    public OrderItemAddRequest(): this(default, default, default){}
 }

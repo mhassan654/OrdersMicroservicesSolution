@@ -74,6 +74,8 @@ namespace DataAccessLayer.Repositories
             {
                 return null;
             }
+
+            order._id = existingOrder._id;
            ReplaceOneResult replaceOneResult= await  _ordersCollection.ReplaceOneAsync(filter, order);
             return order;
         }

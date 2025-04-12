@@ -5,5 +5,5 @@ public record OrderAddRequest(
     DateTime OrderDate,
     List<OrderItemAddRequest> OrderItems)
 {
-    public OrderAddRequest(): this(Guid.NewGuid(), DateTime.UtcNow, default) { }
+    public OrderAddRequest(): this(default, default, []) { }
 }

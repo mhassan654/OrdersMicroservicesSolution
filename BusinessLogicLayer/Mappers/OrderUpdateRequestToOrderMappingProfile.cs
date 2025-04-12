@@ -14,10 +14,7 @@ public class OrderUpdateRequestToOrderMappingProfile:Profile
                     src => src.OrderID))
             .ForMember(dest => dest.UserId,
                 opt => opt.MapFrom(
-                    src => src.UserID))
-            .ForMember(dest => dest.UserId,
-                opt => opt.MapFrom(
-                    src => src.OrderDate))
+                    src => src.UserId))
             .ForMember(dest => dest.OrderDate,
                 opt => opt.Ignore())
             .ForMember(dest => dest._id,

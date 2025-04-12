@@ -27,7 +27,7 @@ namespace OrdersMicroservices.API.Controllers
         }
 
         // GET: /api/orders/search/orderid/{orderId}
-        [HttpGet("/search/orderid/{orderId}")]
+        [HttpGet("search/orderid/{orderId}")]
         public async Task<OrderResponse?> GetByOrderId(Guid orderId)
         {
             FilterDefinition<Order> filter = Builders<Order>.Filter.Eq(x => x.OrderId, orderId);
@@ -36,7 +36,7 @@ namespace OrdersMicroservices.API.Controllers
         }
 
         //GET: /api/orders/search/productid/{productid}
-        [HttpGet("/search/productid/{productid}")]
+        [HttpGet("search/productid/{productid}")]
         public async Task<IEnumerable<OrderResponse?>> GetByProductId(Guid productId)
         {
             FilterDefinition<Order> filter = Builders<Order>.Filter.ElemMatch(
@@ -48,7 +48,7 @@ namespace OrdersMicroservices.API.Controllers
         }
 
         //GET: /api/orders/search/orderDate/{orderDate}
-        [HttpGet("/search/orderDate/{orderDate}")]
+        [HttpGet("search/orderDate/{orderDate}")]
         public async Task<IEnumerable<OrderResponse?>> GetByOrderDate(DateTime orderDate)
         {
             FilterDefinition<Order> filter = Builders<Order>.Filter.Eq(
@@ -68,35 +68,35 @@ namespace OrdersMicroservices.API.Controllers
             }
 
 
-            OrderResponse? orderResponse = await _ordersServices.AddOrder(orderAddRequest);
+            var orderResponse = await _ordersServices.AddOrder(orderAddRequest);
 
             if (orderResponse == null) {
-                return Problem("Error in adding product");
+                return Problem("Error in adding order");
             }
 
             return Created($"api/Orders/search/orderid/{orderResponse?.OrderID}", orderResponse);
         }
 
         //PUT: api/orders/{orderId}
-        [HttpPut("{orderID}")]
-        public async Task<IActionResult> UpdateOrder(Guid orderID, OrderUpdateRequest orderUpdateRequest)
+        [HttpPut("{orderId}")]
+        public async Task<IActionResult> UpdateOrder(Guid orderId, OrderUpdateRequest orderUpdateRequest)
         {
             if (orderUpdateRequest == null)
             {
                 return BadRequest("Invalid order data");
             }
 
-            if (orderID != orderUpdateRequest.OrderID)
+            if (orderId != orderUpdateRequest.OrderID)
             {
                 return BadRequest("OrderID in the URL doesn't match with the" +
                     "OrderID in the requet body");
             }
 
-            OrderResponse? orderResponse = await _ordersServices.UpdateOrder(orderUpdateRequest);
+            var orderResponse = await _ordersServices.UpdateOrder(orderUpdateRequest);
 
             if (orderResponse == null)
             {
-                return Problem("Error in updating product");
+                return Problem("Error in updating order");
             }
 
             return Ok(orderResponse);
@@ -115,18 +115,18 @@ namespace OrdersMicroservices.API.Controllers
 
             if (!isDeleted)
             {
-                return Problem("Error in deleting product");
+                return Problem("Error in deleting order");
             }
 
             return Ok(isDeleted);
         }
 
         //GET: /api/orders/search/userId/{userID}
-        [HttpGet("/search/userid/{userID}")]
-        public async Task<IEnumerable<OrderResponse?>> GetByOrderByUserID(Guid userID)
+        [HttpGet("search/userid/{userId}")]
+        public async Task<IEnumerable<OrderResponse?>> GetByOrderByUserId(Guid userId)
         {
             FilterDefinition<Order> filter = Builders<Order>.Filter.Eq(
-                x => x.UserId,userID);
+                x => x.UserId,userId);
 
             List<OrderResponse?> orders = await (_ordersServices.GetOrdersByCondtion(filter));
             return orders;

@@ -8,7 +8,7 @@ public class OrderUpdateRequestValidator:AbstractValidator<OrderUpdateRequest>
     public OrderUpdateRequestValidator()
     {
         //user id
-        RuleFor(temp=>temp.UserID).NotEmpty().WithErrorCode(
+        RuleFor(temp=>temp.UserId).NotEmpty().WithErrorCode(
             "User ID can't be blank");
         
         RuleFor(temp=>temp.OrderID).NotEmpty().WithErrorCode(
