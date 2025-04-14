@@ -9,7 +9,7 @@ using MongoDB.Driver;
 
 namespace DataAccessLayer.Repositories
 {
-    public class OrderRepository : IOrdersRepositoriy
+    public class OrderRepository : IOrdersRepository
     {
         private readonly IMongoCollection<Order> _ordersCollection;
         private readonly string _collectionName = "orders";
@@ -21,6 +21,13 @@ namespace DataAccessLayer.Repositories
         public async Task<Order?> AddOrder(Order order)
         {
             order.OrderId = Guid.NewGuid();
+            order._id = order.OrderId;
+
+            foreach (OrderItem orderItem in order.OrderItems)
+            {
+                orderItem._id = Guid.NewGuid();
+            }
+            
             await _ordersCollection.InsertOneAsync(order);
             return order;
         }
@@ -67,6 +74,8 @@ namespace DataAccessLayer.Repositories
             {
                 return null;
             }
+
+            order._id = existingOrder._id;
            ReplaceOneResult replaceOneResult= await  _ordersCollection.ReplaceOneAsync(filter, order);
             return order;
         }

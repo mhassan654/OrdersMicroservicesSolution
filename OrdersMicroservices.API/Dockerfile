@@ -27,6 +27,6 @@ RUN dotnet publish "./OrdersMicroservices.API.csproj" -c $BUILD_CONFIGURATION -o
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENV MONGO_HOST=localhost
-ENV MONGO_PORT=27017
+ENV MONGODB_HOST=localhost
+ENV MONGODB_PORT=27017
 ENTRYPOINT ["dotnet", "OrdersMicroservices.API.dll"]

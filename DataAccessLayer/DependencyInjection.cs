@@ -16,12 +16,11 @@ namespace DataAccessLayer
             string connectionStringTemplate = 
                 configuration.GetConnectionString("MongoDB")!;
 
-            connectionStringTemplate.Replace("$MONGO_HOST",
-                Environment.GetEnvironmentVariable("MONGODB_HOST"))
-                .Replace("$MONGO_PORT",
-                Environment.GetEnvironmentVariable("MONGODB_HOST"));
+            string connectionString = connectionStringTemplate.Replace("$MONGO_HOST",
+                Environment.GetEnvironmentVariable("MONGODB_HOST")).Replace("$MONGO_PORT",
+                Environment.GetEnvironmentVariable("MONGODB_PORT"));
 
-            services.AddSingleton<IMongoClient>(new MongoClient(connectionStringTemplate));
+            services.AddSingleton<IMongoClient>(new MongoClient(connectionString));
 
             services.AddScoped<IMongoDatabase>(serviceProvider =>
             {
@@ -29,7 +28,7 @@ namespace DataAccessLayer
                 return mongoClient.GetDatabase("OrdersDatabase");
             });
 
-            services.AddScoped<IOrdersRepositoriy, OrderRepository>();
+            services.AddScoped<IOrdersRepository, OrderRepository>();
             return services;
         }
     }

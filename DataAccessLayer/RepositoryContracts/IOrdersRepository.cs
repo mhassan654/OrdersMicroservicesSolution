@@ -8,17 +8,17 @@ using MongoDB.Driver;
 
 namespace DataAccessLayer.RepositoryContracts
 {
-    public interface IOrdersRepositoriy
+    public interface IOrdersRepository
     {
         /// <summary>
-        /// Retrieves all orders asynchrounously
+        /// Retrieves all orders asynchronously
         /// </summary>
         /// <returns> Returns all orders from the orders collection
         /// </returns>
         Task<IEnumerable<Order>> GetOrders();
 
         /// <summary>
-        /// Retrieves all Orders based on the specified condition asynchrounously
+        /// Retrieves all Orders based on the specified condition asynchronously
         /// </summary>
         /// <param name="filter"></param>
         /// <returns>Returning a collection of matching orders
@@ -27,7 +27,7 @@ namespace DataAccessLayer.RepositoryContracts
         Task<IEnumerable<Order?>> GetOrdersByCondition(FilterDefinition<Order> filter);
 
         /// <summary>
-        /// Retrieves a single order based on the specified condition asynchrounously
+        /// Retrieves a single order based on the specified condition asynchronously
         /// </summary>
         /// <param name="filter">The condition to filter orders
         /// </param>
@@ -36,7 +36,7 @@ namespace DataAccessLayer.RepositoryContracts
         Task<Order?> GetOrderByCondition(FilterDefinition<Order> filter);
 
         /// <summary>
-        /// Adds a new Order into the orders collection asynchrounously
+        /// Adds a new Order into the orders collection asynchronously
         /// </summary>
         /// <param name="order">The order to be added
         /// </param>
@@ -46,7 +46,7 @@ namespace DataAccessLayer.RepositoryContracts
         Task<Order?> AddOrder(Order order);
 
         /// <summary>
-        /// Updates an existing order in the orders collection asynchrounously
+        /// Updates an existing order in the orders collection asynchronously
         /// </summary>
         /// <param name="order">The order to be added
         /// </param>
@@ -55,7 +55,7 @@ namespace DataAccessLayer.RepositoryContracts
         Task<Order?> UpdateOrder(Order order);
 
         /// <summary>
-        /// Deletes an existing order in the orders collection asynchrounously
+        /// Deletes an existing order in the orders collection asynchronously
         /// </summary>
         /// <param name="orderId">The order id based on which the order will be deleted
         /// </param>
