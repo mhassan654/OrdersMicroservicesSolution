@@ -25,7 +25,7 @@ namespace DataAccessLayer
             services.AddScoped<IMongoDatabase>(serviceProvider =>
             {
                 var mongoClient = serviceProvider.GetRequiredService<IMongoClient>();
-                return mongoClient.GetDatabase("OrdersDatabase");
+                return mongoClient.GetDatabase(Environment.GetEnvironmentVariable("MONGODB_DATABASE"));
             });
 
             services.AddScoped<IOrdersRepository, OrderRepository>();
