@@ -1,5 +1,6 @@
 using AutoMapper;
 using BusinessLogicLayer.DTO;
+using BusinessLogicLayer.HttpClients;
 using BusinessLogicLayer.ServiceContracts;
 using DataAccessLayer.Entities;
 using DataAccessLayer.RepositoryContracts;
@@ -15,6 +16,7 @@ public class OrdersService:IOrdersServices
     private readonly IValidator<OrderUpdateRequest> _orderUpdateRequestValidator;
     private readonly IValidator<OrderItemAddRequest> _orderItemAddRequestValidator;
     private readonly IValidator<OrderItemUpdateRequest> _orderItemUpdateRequestValidator;
+    private readonly UsersMicroserviceClient _usersMicroserviceClient;
     
     private readonly IMapper _mapper;
     private readonly IOrdersRepository _repository;
@@ -25,7 +27,8 @@ public class OrdersService:IOrdersServices
         IValidator<OrderAddRequest> orderAddRequestValidator,
         IValidator<OrderUpdateRequest> orderUpdateRequestValidator,
         IValidator<OrderItemAddRequest> orderItemAddRequestValidator,
-        IValidator<OrderItemUpdateRequest> orderItemUpdateRequestValidator)
+        IValidator<OrderItemUpdateRequest> orderItemUpdateRequestValidator,
+        UsersMicroserviceClient usersMicroserviceClient)
     {
         _orderAddRequestValidator = orderAddRequestValidator;
         _orderUpdateRequestValidator = orderUpdateRequestValidator;
@@ -33,6 +36,8 @@ public class OrdersService:IOrdersServices
         _orderItemUpdateRequestValidator = orderItemUpdateRequestValidator;
         _mapper = mapper;
         _repository = ordersRepository;
+        _usersMicroserviceClient = usersMicroserviceClient;
+        
     }
     
     public async Task<List<OrderResponse?>> GetAllOrdersAsync()
@@ -101,6 +106,11 @@ public class OrdersService:IOrdersServices
         }
         
         // Check if userid exists in users microservice
+        UserDto? user = await _usersMicroserviceClient.GetUserById(orderAddRequest.UserID);
+        if (user is null)
+        {
+            throw new ArgumentException("Invalid user id");
+        }
         
         //convert data from orderAddRequest to order
         var orderInput = _mapper.Map<Order>(orderAddRequest); // maps orderAddRequest to order type (it invokes 

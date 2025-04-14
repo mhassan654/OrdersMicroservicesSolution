@@ -1,6 +1,7 @@
 
 
 using BusinessLogicLayer;
+using BusinessLogicLayer.HttpClients;
 using BusinessLogicLayer.Mappers;
 using DataAccessLayer;
 using FluentValidation.AspNetCore;
@@ -31,6 +32,14 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader();
     });
 });
+
+builder.Services.AddHttpClient<UsersMicroserviceClient>(
+    client => client.BaseAddress = new Uri(
+        $"http://{builder.Configuration["UsersMicroserviceName"]}:" +
+        $"{builder.Configuration["UsersMicroservicePort"]}"));
+
+// builder.Services.AddHttpClient<UsersMicroserviceClient>(
+//     client => client.BaseAddress = new Uri("http://localhost:5209"));
 
 var app = builder.Build();
 
