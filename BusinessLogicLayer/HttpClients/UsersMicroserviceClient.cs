@@ -34,6 +34,7 @@ public class UsersMicroserviceClient
         }
 
         UserDto? user = await response.Content.ReadFromJsonAsync<UserDto>();
+
         if (user ==null)
         {
             throw new ArgumentException("User could not be found");
