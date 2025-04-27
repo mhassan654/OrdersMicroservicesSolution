@@ -67,15 +67,5 @@ public class PollyPolicies:IPollyPolicies
         return policy;
     }
 
-    public IAsyncPolicy<HttpResponseMessage> GetCombinedPolicy()
-    {
-       var retryPolicy = GetRetryPolicy();
-        var circuitBreakerPolicy = GetCircuitBreakerPolicy();
-        var timeoutPolicy = GetTimeoutPolicy();
-
-        AsyncPolicyWrap<HttpResponseMessage> combinedPolicy =
-            Policy.WrapAsync(retryPolicy, circuitBreakerPolicy, timeoutPolicy);
-
-        return combinedPolicy;
-    }
+  
 }
