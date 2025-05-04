@@ -16,7 +16,14 @@ namespace BusinessLogicLayer
             services.AddValidatorsFromAssemblyContaining<OrderAddRequestValidator>();
             
             services.AddAutoMapper(typeof(OrderAddRequestToOrderMappingProfile).Assembly);  
+
             services.AddScoped<IOrdersServices, OrdersService>();
+
+            services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = $"{configuration["REDIS_HOST"]}: {configuration["REDIS_PORT"]}";
+
+            });
             return services;
         }
     }

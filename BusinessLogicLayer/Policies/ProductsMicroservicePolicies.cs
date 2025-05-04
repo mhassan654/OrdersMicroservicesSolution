@@ -22,7 +22,7 @@ public class ProductsMicroservicePolicies: IProductsMicroservicePolicies
 
         AsyncFallbackPolicy<HttpResponseMessage> policy =
             Policy.HandleResult<HttpResponseMessage>(r
-            => !r.IsSuccessStatusCode).FallbackAsync(async(context) =>
+            => !r.IsSuccessStatusCode).FallbackAsync((context) =>
             {
                 _logger.LogInformation("Fallback riggered: The request failed, returning dummy data");
                 ProductDto product = new ProductDto(
@@ -32,13 +32,13 @@ public class ProductsMicroservicePolicies: IProductsMicroservicePolicies
                     UnitPrice: 0,
                     QuantityInStock: 0);
 
-              var response=  new HttpResponseMessage(System.Net.HttpStatusCode.OK)
+                var response = new HttpResponseMessage(System.Net.HttpStatusCode.ServiceUnavailable)
                 {
                     Content = new StringContent(JsonSerializer.Serialize(product),
-                    Encoding.UTF8, "application/json")
+                      Encoding.UTF8, "application/json")
                 };
 
-                return response;
+                return Task.FromResult(response);
 
             });
             return policy;

@@ -13,6 +13,8 @@ services:
       - UsersMicroservicePort=9090
       - ProductsMicroserviceName=products-microservice
       - ProductsMicroservicePort=8080
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
     ports:
      - "7000:8080"
     networks:
@@ -96,6 +98,24 @@ services:
     networks:
     - users-postgres-network
 
+  redis: 
+    image: redis:latest
+    ports:
+     - "6379:6379"
+    volumes:
+     - D:/PROJECTS/.NET/Microservices/microservices/redis-cache:/data
+    networks:
+      - ecommerce-network
+
+  apigateway:
+    image: apigateway
+    build:
+     context: .
+     dockerfile: ApiGateway/Dockerfile
+    ports:
+     - "4000:8080"
+    networks:
+     - ecommerce-network
 
 networks:
  orders-mongodb-network:
@@ -106,3 +126,4 @@ networks:
   driver: bridge
  ecommerce-network:
   driver: bridge
+
