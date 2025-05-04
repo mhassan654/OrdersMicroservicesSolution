@@ -95,6 +95,13 @@
             {
                 "RetryCount": 3,
                 "RetryOnServerError": true
+            },
+            "RateLimitOptions": {
+                "Limit": 3,
+                "Period": "1m",
+                "HttpStatusCode": 429,
+                "EnableRateLimiting": true,
+                "PeriodTimespan": 30
             }
         },
         {
