@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer.Mappers;
+using BusinessLogicLayer.RabbitMq;
 using BusinessLogicLayer.ServiceContracts;
 using BusinessLogicLayer.Services;
 using BusinessLogicLayer.Validators;
@@ -24,6 +25,10 @@ namespace BusinessLogicLayer
                 options.Configuration = $"{configuration["REDIS_HOST"]}: {configuration["REDIS_PORT"]}";
 
             });
+
+            services.AddTransient<IRabbitMqProductNameUpdateConsumer, RabbitMqProductNameUpdateConsumer>();
+            services.AddHostedService<RabbitMqProductNameUpdateHostedService>();
+
             return services;
         }
     }
